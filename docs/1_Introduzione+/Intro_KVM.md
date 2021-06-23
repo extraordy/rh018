@@ -1,4 +1,4 @@
-# Concetto di virtualizzazione KVM (Chapter 2)
+# Introduzione a KVM
 
 <p align="center">
     <img src="images/kvm.png" alt="KVM" width="600"/>
