@@ -20,9 +20,14 @@ Chi approccia la virtualizzazione per la prima volta, non di rado arriva a porsi
 possiamo creare una macchina virtuale che viene eseguita all'interno (o "sopra") una macchina fisica,
 ma quali sono i vantaggi?"
 
-- **Ho eliminato l'hardware fisico?** No ovviamente, l'hardware non può essere eliminato. La macchina host
+### Ho eliminato l'hardware fisico?
+
+No ovviamente, l'hardware non può essere eliminato. La macchina host
 avrà sempre bisogno di avere CPU, RAM, storage, network etc.
-- **Ho semplificato l'amministrazione del sistema operativo e/o applicativo?** No, neppure.
+
+### Ho semplificato l'amministrazione del sistema operativo o delle applicazioni?
+
+No, neppure.
 La macchina, anche se virtuale, ha comunque bisogno che il suo sistema operativo abbia le corrette configurazioni,
 e lo stesso vale per le applicazioni. Ad esempio: se devo installare un server web, il fatto che sia virtualizzato
 in sè non semplifica la configurazione di Apache. Anzi, potrebbe addirittura complicarla: l'interfaccia di rete della
@@ -96,7 +101,4 @@ virtualizzazione. Hypervisor di questo tipo sono *Oracle VirtualBox* e *VMware W
     <img src="images/type2.png" alt="Type 2 Hypervisor" width="600"/>
 </p>
 
-
 ## KVM vs QEMU vs LIBVIRT
-
-
