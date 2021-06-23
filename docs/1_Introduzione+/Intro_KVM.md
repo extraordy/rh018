@@ -96,10 +96,7 @@ virtualizzazione. Hypervisor di questo tipo sono *Oracle VirtualBox* e *VMware W
     <img src="images/type2.png" alt="Type 2 Hypervisor" width="600"/>
 </p>
 
-## KVM
 
 ## KVM vs QEMU vs LIBVIRT
 
-## Esempio command line
 
-/usr/bin/qemu-system-x86_64-nameguest=rhel8,[...]accel=kvm[...]
