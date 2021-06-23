@@ -34,7 +34,7 @@ in sè non semplifica la configurazione di Apache. Anzi, potrebbe addirittura co
 macchina virtuale, ad esempio, è collegata ad una Virtual Network, un layer software ulteriore che si aggiunge alla
 configurazione dell'interfaccia fisica della macchina host e che va amministrato.
 
-Ma il bilancio, se si fermasse qui, sarebbe estremamente parziale, perché la virtualizzazione permette  in realtà
+Ma il bilancio, se si fermasse qui, sarebbe estremamente parziale, perché la virtualizzazione può portare
 enormi vantaggi rispetto ad un approccio in cui tutto è fisico. Per citarne alcuni:
 
 ### Consolidamento delle risorse
