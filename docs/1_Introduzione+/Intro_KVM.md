@@ -37,25 +37,25 @@ configurazione dell'interfaccia fisica della macchina host e che va amministrato
 Ma il bilancio, se si fermasse qui, sarebbe estremamente parziale, perché la virtualizzazione può portare
 enormi vantaggi rispetto ad un approccio in cui tutto è fisico. Per citarne alcuni:
 
-### Consolidamento delle risorse
+* Consolidamento delle risorse
 
-Il dimensionamento di un server che deve erogare un servizio o eseguire
+   Il dimensionamento di un server che deve erogare un servizio o eseguire
 un'applicazione può essere complicato. E' molto difficile valutare esattamente le risorse necessarie e,
 quasi sempre, un server fisico si ritrova con risorse inutilizzate per gran parte del tempo. Grazie alla
 virtualizzazione, possiamo trarre vantaggio di queste risorse libere: se il server ha potenza computazionale
 residua, perché non aggiungere altre macchine virtuali che possano sfruttarle ed erogare servizi aggiuntivi?
 Il risparmio economico e la razionalizzazione delle risorse possono essere enormi.
 
-### Backup
+* Backup
 
-La virtualizzazione permette di creare backup e snapshot di tutta la nostra infrastruttura
+  La virtualizzazione permette di creare backup e snapshot di tutta la nostra infrastruttura
 con estrema facilità, rendendo anche la sperimentazione di nuove soluzioni molto più agile. Creo uno snapshot,
 testo alcune modifiche o una nuova configurazione e, se ne ho bisogno, posso far tornare tutto allo stato
 precedente in tempi brevissimi.
 
-### Deployment
+* Deployment
 
-Ci sono soluzioni come Red Hat Satellite e Ansible che rendono il deployment
+  Ci sono soluzioni come Red Hat Satellite e Ansible che rendono il deployment
 di macchine anche fisiche un processo perlopiù automatico, ma la virtualizzazione ne moltiplca le capacità. Diventa
 possibile definire non solo le configurazioni software, ma anche quelle "hardware" in maniera automatica. Sfruttando,
 ad esempio, delle API, possiamo assegnare esattamente le risorse che ci servono su ogni macchina virtuale tramite una
