@@ -68,23 +68,23 @@ virtualizzare (Desktop Virtualization, Server Virtualization, Application Virtua
 viene preso in considerazione il "metodo" usato per creare macchine virtuali. Alcuni esempi di tipi di virtualizzazione
 sono:
 
-### Partitioning
+* Partitioning
 
-La CPU è divisa in più parti e ognuna lavora individualmente in maniera isolata e può
+    La CPU è divisa in più parti e ognuna lavora individualmente in maniera isolata e può
 eseguire un sistem opartivo diverso (come le IBM Logical Partitions - LPARs)
 
-### Full Virtualization
+* Full Virtualization
 
-L'hardware della macchina virtuale è emulato in maniera trasparente, così che
+  L'hardware della macchina virtuale è emulato in maniera trasparente, così che
 il sistema operativo *guest* non sia consapevole di essere eseguito in una macchina virtuale (e quindi,
 non abbia bisogno di essere modificato rispetto a quello che viene eseguito in una macchina fisica).
 La *Full Virtualization* può essere ottenuta sia via software, traducendo al volo l'instruction set dei
 binari eseguiti dalla macchina *guest* (è un processo costoso in termini di risorse), sia via hardware,
 se la CPU della macchina host supporta la virtualizzazione (AMD-V o Intel VT). KVM sfrutta questa tecnologia.
 
-### Paravirtualization
+* Paravirtualization
 
-La macchina *guest* esegue una versione modificata del sistema operativo e dei
+  La macchina *guest* esegue una versione modificata del sistema operativo e dei
 driver che le permettono di venire eseguita senza bisogno delle estensioni di virtualizzazione della CPU.
 
 Ci sono poi anche approcci ibridi e i container (che permettono la virtualizzazione delle singole
@@ -101,9 +101,9 @@ ha il compito di gestire in ogni suo aspetto le macchine virtuali (*guest*). Esi
 di hypervisor, distinti sulla base del livello a cui operano rispetto all'hardware fisico (anche se la linea
 di demarcazione non è così netta e potrebbe essere oggetto di dibattito...):
 
-### Type 1 Hypervisor
+* Type 1 Hypervisor
 
-Il software dell'hypervisor viene eseguito direttamente sulla macchina fisica (in altre
+  Il software dell'hypervisor viene eseguito direttamente sulla macchina fisica (in altre
 parole, *è* il sistema operativo dell'*host*) ed interagisce direttamente con l'hardware. Alcuni esempi di questo
 tipo sono *VMware ESXi*, *Citrix XenServer*, *Microsoft Hyper-V* e *KVM*, che di fatto rende il kernel della macchina
 *host* un hypervisor. Questo tipo di hypervisor è detto anche *bare-metal*
@@ -112,9 +112,9 @@ tipo sono *VMware ESXi*, *Citrix XenServer*, *Microsoft Hyper-V* e *KVM*, che di
     <img src="images/type1.png" alt="Type 1 Hypervisor" width="600"/>
 </p>
 
-### Type 2 Hypervisor
+* Type 2 Hypervisor
 
-La macchina *host* ha un sistema operativo sul quale viene eseguito un software di
+  La macchina *host* ha un sistema operativo sul quale viene eseguito un software di
 virtualizzazione. Hypervisor di questo tipo sono *Oracle VirtualBox* e *VMware Workstation/Player*
 
 <p align="center">
