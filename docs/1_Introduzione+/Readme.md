@@ -138,7 +138,7 @@ senza bisogno che l'hypervisor esegua una traduzione delle istruzioni a runtime,
 Queste estensioni devono essere, nella maggior parte delle schede madri, esplicitamente abilitate nel BIOS/UEFI
 dell'hypervisor
 
-## KVM
+### KVM
 
 Per poter sfruttare questo set di istruzioni, il kernel Linux utilizza i moduli **kvm** (kvm.ko, kvm-intel.ko, kvm-amd.ko).
 Questi moduli sono generalmente caricati dal kernel automaticamente se la CPU espone le funzionalità di virtualizzazione
@@ -156,14 +156,14 @@ I moduli KVM, una volta caricati, espongono un nuovo dispositivo, `/dev/kvm`, ch
 utilizzare per interagire con il set di istruzioni esteso della CPU tramite syscall dirette (*ioctl()*). Nel nostro caso, il
 software di virtualizzazione è *QEMU*.
 
-## QEMU
+### QEMU
 
 QEMU è un software che ha la capacità di creare hardware emulato (CPU, dischi, rete, periferiche PCI e uSUB etc.). Quando però
 viene usato assieme a KVM (QEMU-KVM), è in grado di trarre vantaggio di `/dev/kvm`, rendendo l'emulazione della CPU molto
 performante grazie ai set di istruzioni estese Intel e AMD. QEMU è in grado anche di creare e inizializzare macchine virtuali,
 diventando a tutti gli effetti in software di virtualizzazione completo.
 
-## LIBVIRT
+### LIBVIRT
 
 Ora che abbiamo una CPU in grado di accelerare la virtualizzazione grazie a set di istruzioni dedicate, un modulo del kernel
 un software di che ci permette di trarne vantaggio (**KVM**), un software di virtualizzazione completo in grado di creare
@@ -186,7 +186,7 @@ Per riassumere, potremmo rappresentare lo stack (con alcune semplificazioni) in 
 </p>
 
 
-## CREARE UNA VIRTUAL MACHINE
+### CREARE UNA VIRTUAL MACHINE
 
 Anche se il resto del corso si concentrerà su **oVirt**, è comunque utile utilizzare le API di libvirt con i tool da linea di comando
 per familiarizzare con quello che avviene quando si crea una virtual machine.
