@@ -121,4 +121,107 @@ virtualizzazione. Hypervisor di questo tipo sono *Oracle VirtualBox* e *VMware W
     <img src="images/type2.png" alt="Type 2 Hypervisor" width="600"/>
 </p>
 
-## KVM vs QEMU vs LIBVIRT
+## KVM, QEMU e LIBVIRT
+
+Approcciando KVM ci si rende presro conto che i componenti in gioco sono più di uno, e non è sempre semplice
+farsi un'idea corretta di quale sia la loro funzione all'interno dello stack software e hardware coinvolto
+nel processo di virtualizzazione.
+Al livello più basso, un ruolo fondamentale è ricoperto dalla CPU (fisica) sulla quale creiamo l'ambiente
+virtualizzato (ovvero, la CPU della macchina che fa da hypervisor). Sia i processori Intel che AMD hanno
+introdotto - una quindicina di anni fa - delle feature specifiche dedicate appositamente alla virtualizzazione:
+
+### Intel VT / AMD-V
+
+Sono un'estensione del set di istruzioni del processore e dei livelli di accesso privilegiato (viene introdotto
+il "ring -1") che permettono al sistema operativo virtualizzato di eseguire istruzioni privilegiate (kernel mode)
+senza bisogno che l'hypervisor esegua una traduzione delle istruzioni a runtime, aumentando notevolmente le prestazioni.
+Queste estensioni devono essere, nella maggior parte delle schede madri, esplicitamente abilitate nel BIOS/UEFI
+dell'hypervisor
+
+## KVM
+
+Per poter sfruttare questo set di istruzioni, il kernel Linux utilizza i moduli **kvm** (kvm.ko, kvm-intel.ko, kvm-amd.ko).
+Questi moduli sono generalmente caricati dal kernel automaticamente se la CPU espone le funzionalità di virtualizzazione
+(Intel VT / AMD-V). Per confermare che i moduli siano attivi, si può fare un `lsmod`:
+
+```bash
+[user@linux]lsmod | grep kvm
+kvm_amd               118784  0
+kvm                   835584  1 kvm_amd
+ccp                   102400  1 kvm_amd
+
+```
+
+I moduli KVM, una volta caricati, espongono un nuovo dispositivo, `/dev/kvm`, che le applicazioni di virtualizzazione possono
+utilizzare per interagire con il set di istruzioni esteso della CPU tramite syscall dirette (*ioctl()*). Nel nostro caso, il
+software di virtualizzazione è *QEMU*.
+
+## QEMU
+
+QEMU è un software che ha la capacità di creare hardware emulato (CPU, dischi, rete, periferiche PCI e uSUB etc.). Quando però
+viene usato assieme a KVM (QEMU-KVM), è in grado di trarre vantaggio di `/dev/kvm`, rendendo l'emulazione della CPU molto
+performante grazie ai set di istruzioni estese Intel e AMD. QEMU è in grado anche di creare e inizializzare macchine virtuali,
+diventando a tutti gli effetti in software di virtualizzazione completo.
+
+## LIBVIRT
+
+Ora che abbiamo una CPU in grado di accelerare la virtualizzazione grazie a set di istruzioni dedicate, un modulo del kernel
+un software di che ci permette di trarne vantaggio (**KVM**), un software di virtualizzazione completo in grado di creare
+macchine virtuali dotate di tutte le periferiche emulate di cui hanno bisogno (**QEMU**), abbiamo bisogno di un'interfaccia
+per poter creare, amministrare, modificare etc. le nostre macchine virtuali. Anche se, tecnicamente, QEMU potrebbe essere
+amministrato direttamente eseguendolo direttamente da terminale e passandogli i parametri corretti, *libvirt* mette a disposizione
+degli amministratori di sistema delle API stabili che si occupano di fare i conti con li software di virtualizzazione sottostante.
+E' in grado, grazie all'implementazione di diversi driver, di fornire un layer di astrazione per diversi software di virtualizzazione.
+Chi volesse prendersi il tempo di guardare il codice sorgente di libvirt, troverebbe tutte queste implementazioni di driver (qemu_driver.c,
+xen_driver.c, xenapi_driver.c, vmware_driver.c, vbox_driver.c etc.), che corrispondono ad altrettanti software di virtualizzazione.
+Queste API, messe a disposizione da libvirt tramite il demone `libvirtd`, possono essere sfruttate usando una serie di utility da
+terminale (`virsh`, `virt-install`, etc.) o utility grafiche (Gnome virt-manager, Gnome boxes, Cockpit etc.)
+Come vedremo più avanti, quando l'ambiente virtuale diventa complesso e le macchine numerose, un software come *oVirt* permette una
+gestione più avanzata e scalabile, ma le API con cui si interfaccia sono API di *libvirt*
+
+Per riassumere, potremmo rappresentare lo stack (con alcune semplificazioni) in questo modo:
+
+<p align="center">
+    <img src="images/libvirt.png" alt="libvirt" width="600"/>
+</p>
+
+
+## CREARE UNA VIRTUAL MACHINE
+
+Anche se il resto del corso si concentrerà su **oVirt**, è comunque utile utilizzare le API di libvirt con i tool da linea di comando
+per familiarizzare con quello che avviene quando si crea una virtual machine.
+
+Il comando che useremo sarà `virt-install`. Avremo bisogno di scaricare la ISO di un sistema operativo che useremo come installer,
+nel nostro caso CentOS 8.3, e copiarlo sul filesystem (ad esempio, in `/var/lib/libvirt/images/`). Per assegnare alla macchina virtuale
+4GB di RAM, 2 CPU e un hard disk da 16GB, il comando è:
+
+```bash
+
+virt-install --virt-type=kvm \
+--name=CentOSVM \
+--ram 4096 --vcpus 2 \
+--os-variant=rhel8.3 \
+--cdrom=/var/lib/libvirt/images/CentOS-8.3.2011-x86_64-minimal.iso \
+--network=default --graphics vnc --disk size=16
+
+```
+
+Virt-install, una volta creata la macchina virtuale, lancerà automaticamente virt-viewer collegato alla console dell'istanza appena
+creata:
+
+<p align="center">
+    <img src="images/libvirt.gif" alt="VM Creation" width="600"/>
+</p>
+
+Ma cosa è avvenuto "sotto"? Se apriamo un altro terminale e controlliamo i processi attivi, vedremo che la nostra macchina virtuale
+altro non è che un processo di `qemu-system-x86_64` - che è il binario Qemu per l'architettura x86 - lanciato da `libvirt` - con una
+lunghissima serie di parametri che ci fanno ben capire perché sia preferibile utilizzare un tool di alto livello (libvirt o, come
+vedremo, oVirt) che si occupi di gestire Qemu invece che interagire direttamente. Tra i vari parametri, troveremo anche `accel=kvm`
+, che ci conferma che Qemu sta sfuttando pienamente il modulo KVM (e quindi `/dev/kvm`) per incremetare le prestazioni della virtualizzazione;
+
+```bash
+
+ps aux | grep qemu
+
+libvirt+   27369  9.9 12.3 5132860 4057416 ?     Sl   14:25   0:50 /usr/bin/qemu-system-x86_64 -name guest=CentOSVM [...], accel=kvm, [...]
+
