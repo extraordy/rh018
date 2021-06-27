@@ -210,7 +210,7 @@ Virt-install, una volta creata la macchina virtuale, lancerà automaticamente vi
 creata:
 
 <p align="center">
-    <img src="images/libvirt.gif" alt="VM Creation" width="600"/>
+    <img src="images/virt-install.gif" alt="VM Creation" width="600"/>
 </p>
 
 Ma cosa è avvenuto "sotto"? Se apriamo un altro terminale e controlliamo i processi attivi, vedremo che la nostra macchina virtuale
