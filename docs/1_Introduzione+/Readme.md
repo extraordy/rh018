@@ -235,7 +235,11 @@ che l'ha creata(virt-install), diventa quindi possibile gestirla con altri progr
 sia da linea di comando che con interfaccia grafica...
 
 In questo caso, trattandosi di un'unica macchina virtuale, può essere comodo avviarla
-da linea di comando con virsh:
+da linea di comando con:
+
+```bash
+virsh start <VM>
+```
 
 <p align="center">
     <img src="images/virsh-start.gif" alt="VM Creation" width="600"/>
@@ -244,8 +248,22 @@ da linea di comando con virsh:
 Usato in questo modo, virsh ha un po' il sapore delle utility da linea di comando
 usate per gestire i container(docker, podman..)
 
+...così come docker, anche virsh lista solo le macchine attive, a meno che non gli si da 
+un paratetro "--all":
+
+```bash
+visrsh list
+
+## per avere anche le macchine non attive..
+virsh list --all
+```
+
 Oltre ad avviare una macchina è ovviamente possibile anche spegnerla, dandogli il
 tempo di compiere la procedura di "shutdown"...
+
+```bash
+virsh shutdown <VM>
+```
 
 <p align="center">
     <img src="images/virsh-stop.gif" alt="libvirt" width="600"/>
@@ -255,6 +273,13 @@ Oppure "distruggerla"(che è un modo più elegante di dire "spegniti ORA!").
 Questo metodo può danneggiare la macchina virtuale, di norma va usato se la macchina
 smette di rispondere. Attraverso virsh è anche possibile compiere una procedura che altrimenti
 chiameremmo "virt-uninstall".. che qui viene chiamata in modo grazioso "undefine"...
+
+```bash
+virsh destroy <VM>
+
+##...dopo aver eseguito un destroy/shutdown..
+virsh undefine <VM>
+```
 
 <p align="center">
     <img src="images/virsh-undefine.gif" alt="libvirt" width="600"/>
