@@ -225,3 +225,48 @@ ps aux | grep qemu
 
 libvirt+   27369  9.9 12.3 5132860 4057416 ?     Sl   14:25   0:50 /usr/bin/qemu-system-x86_64 -name guest=CentOSVM [...], accel=kvm, [...]
 
+```
+
+
+### Gestire Virtual Machine con virsh
+
+La macchina virtuale installata in precedenza, diventa un'entità indipendente dal comando
+che l'ha creata(virt-install), diventa quindi possibile gestirla con altri programmi,
+sia da linea di comando che con interfaccia grafica...
+
+In questo caso, trattandosi di un'unica macchina virtuale, può essere comodo avviarla
+da linea di comando con virsh:
+
+<p align="center">
+    <img src="images/virsh-start.gif" alt="VM Creation" width="600"/>
+</p>
+
+Usato in questo modo, virsh ha un po' il sapore delle utility da linea di comando
+usate per gestire i container(docker, podman..)
+
+Oltre ad avviare una macchina è ovviamente possibile anche spegnerla, dandogli il
+tempo di compiere la procedura di "shutdown"...
+
+<p align="center">
+    <img src="images/virsh-stop.gif" alt="libvirt" width="600"/>
+</p>
+
+Oppure "distruggerla"(che è un modo più elegante di dire "spegniti ORA!").
+Questo metodo può danneggiare la macchina virtuale, di norma va usato se la macchina
+smette di rispondere. Attraverso virsh è anche possibile compiere una procedura che altrimenti
+chiameremmo "virt-uninstall".. che qui viene chiamata in modo grazioso "undefine"...
+
+<p align="center">
+    <img src="images/virsh-undefine.gif" alt="libvirt" width="600"/>
+</p>
+
+
+Per concludere il quadro, c'è da dire che virsh non è altro che uno "script" costruito
+col preciso scopo di comunicare all'API di libvirt, esposta da libvirtd.. con la comodità della linea
+di comando.
+Perciò in base alle chiamate all'API che virsh supporta, è possibile compiere una 
+vasta serie di operazioni sulle proprie macchine virtuali...
+
+Si consiglia di aprire il [link alla documentazione di virsh](https://www.libvirt.org/manpages/virsh.html)
+solo per rendersi conto della quantità di operazioni che è possibile compiere 
+sulle macchine virtuali in un sistema.. accessibili tramite virsh.
