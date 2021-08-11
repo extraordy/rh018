@@ -23,11 +23,7 @@ Qui ci si aprirà una schermata in cui possiamo andare a definire Nome, Tipo di 
 ![Configurazione VM](img/conf_vm.png)
 
 
-Se vogliamo aggiungere dello storage alla nostra macchina virtuale, possiamo farlo direttamente qui o andando creare il disco virtuale che ospiterà i dati della vm. Una volta creata la macchina virtuale, troveremo la nostra macchina in stato di °up°. Per collegarci alla nostra macchina ci basterà andare a utilizzare il tasto *Console* per aprire una sessione SPICE con la macchina remota:
-
-![]
-
-Questo farà partire il download di un file contenente la configurazione per la connessione, possiamo utilizzare questo file con software come virt-viewer.
+Se vogliamo aggiungere dello storage alla nostra macchina virtuale, possiamo farlo direttamente qui o andando creare il disco virtuale che ospiterà i dati della vm. Una volta creata la macchina virtuale, troveremo la nostra macchina in stato di °up°. Per collegarci alla nostra macchina ci basterà andare a utilizzare il tasto *Console* per aprire una sessione SPICE con la macchina remota. Questo farà partire il download di un file contenente la configurazione per la connessione, possiamo utilizzare questo file con software come virt-viewer.
 
 ## Ansible
 
