@@ -46,6 +46,10 @@ Cosa possiamo fare con le collection per oVirt? In realtà possiamo fare un po' 
 - Gestione del cluster
 - ecc...
 
+Per installare l'ansible collection per ovirt ci basta lanciare il comando:
+
+`ansible-galaxy collection install ovirt.ovirt`
+
 ### oVirt Collection: Creazione VM
 
 Vediamo un playbook d'esempio per poter creare una serie di VM con le collection di ansible.
@@ -188,4 +192,8 @@ groups:
   test: "'test' in tags"
   prod: "'prod' in tags"
 ```
+## Link utili
 
+- [oVirt Docs](https://www.ovirt.org/documentation/)
+- [Ansible Collection oVirt](https://github.com/oVirt/ovirt-ansible-collection)
+- [512-byte VM](https://github.com/oVirt/512-byte-vm)
