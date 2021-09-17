@@ -12,17 +12,17 @@ Iniziamo a preparare quello che ci servirà:
 - 2 vCPU (raccomandate 4 vCPU)
 - 6 GiB di memoria (4 per il manager, 2 per l’host)
 - 1 vNIC di tipo VirtIO
-- 1 vDisk da 55 GB
+- 1 vDisk da 64 GB
 - 1 vDisk di tipo shared da 75 GB (servirà per il manager)
 - 1 vDisk di tipo shared da 10 GB (come storage per le VM)
 - L’immagine ISO di RHVH (solo se in possesso di una sottoscrizione) o di oVirt Node:
-    - RHVH → scaricare l’ultima [Hypervisor Image for RHV 4.4.z](https://access.redhat.com/downloads/content/415/ver=/rhel---8/4.4/x86_64/product-software)
+    - RHVH → scaricare l’ultima [Hypervisor Image for RHV 4.4.z](https://access.redhat.com/downloads/content/328/ver=4.4/rhel---8/4.4/x86_64/product-software)
     - oVirt Node → scaricare l'ultima [ovirt-node-ng-installer-4.4.???.el8.iso](https://resources.ovirt.org/pub/ovirt-4.4/iso/ovirt-node-ng-installer/)
 
 Dato che l'obiettivo è avere questa infrastruttura virtualizzata, è fondamentale abilitare la virtualizzazione nested nel nostro host.
 
 ## Installazione di libvirt/KVM
-Per installare la virtualizzazione su RHEL 8 / CentOS 8, attenersi alla documentazione ufficiale → Configuring and managing virtualization (paragrafo Enabling virtualization).
+Per installare la virtualizzazione su RHEL 8 / CentOS 8, attenersi alla documentazione ufficiale → [Configuring and managing virtualization](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_virtualization/getting-started-with-virtualization-in-rhel-8_configuring-and-managing-virtualization#enabling-virtualization-in-rhel8_virt-getting-started) (paragrafo Enabling virtualization).
 
 Per installare la virtualizzazione su Fedora, attenersi alla documentazione della community → https://docs.fedoraproject.org/en-US/quick-docs/getting-started-with-virtualization/
 
@@ -108,13 +108,13 @@ Per definire le vm possiamo creare la macchina virtuale eseguendo il comando:
 
 ```bash
 virt-install --name node1.ovirt \
---cdrom /path/to/ovirt-node-ng-installer-4.4.6-2021051809.el8.iso \
+--cdrom /path/to/ovirt-node-ng-installer-4.4.8-2021090310.el8.iso \
 --vcpus 4 --memory 6144 \
 --network network=ovirt-mgt \
 --os-variant rhel8.4 \
 --cpu host-passthrough \
 --controller type=scsi,model=virtio-scsi \
---disk size=55,pool=default \
+--disk size=64,pool=default \
 --disk vol=default/HE_store.img,bus=scsi,format=raw,shareable=on \
 --disk vol=default/VM_store.img,bus=scsi,format=raw,shareable=on
 ```
@@ -143,7 +143,7 @@ A seconda che si sia scelto di installare RHV od oVirt, attenersi alla relativa 
 - RHVH → [Installing the Self-hosted Engine Deployment Host](https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.4/html/installing_red_hat_virtualization_as_a_self-hosted_engine_using_the_cockpit_web_interface/installing_the_self-hosted_engine_deployment_host_she_cockpit_deploy)
 - oVirt Node → [Installing the Self-hosted Engine Deployment Host](https://www.ovirt.org/documentation/installing_ovirt_as_a_self-hosted_engine_using_the_cockpit_web_interface/#Installing_the_self-hosted_engine_deployment_host_SHE_cockpit_deploy)
 
-> N.B.: è necessario prestare molta attenzione alla scelta del disco di installazione. Va infatti selezionato solo il disco VirtIO da 55 GB, lasciando deselezionati i due dischi SCSI, che verranno invece utilizzati in seguito.
+> N.B.: è necessario prestare molta attenzione alla scelta del disco di installazione. Va infatti selezionato solo il disco VirtIO da 64 GB, lasciando deselezionati i due dischi SCSI, che verranno invece utilizzati in seguito.
 
 ### Download dell’ RHV-M Appliance (o dell’Engine Appliance)
 
@@ -153,7 +153,7 @@ In caso si stia effettuando un’installazione con connettività Internet, proce
 
 A seconda che si sia scelto di installare RHV od oVirt, scaricare l’appliance corrispondente e installarla, attenendosi alla relativa documentazione:
 
-- RHVM → [Manually installing the RHV-M Appliance](https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.4/html/installing_red_hat_virtualization_as_a_self-hosted_engine_using_the_cockpit_web_interface/installing_the_red_hat_virtualization_manager_she_cockpit_deploy#proc_Manually_installing_the_appliance_install_RHVMManually installing the RHV-M Appliance)
+- RHVM → [Manually installing the RHV-M Appliance](https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.4/html/installing_red_hat_virtualization_as_a_self-hosted_engine_using_the_cockpit_web_interface/installing_the_red_hat_virtualization_manager_she_cockpit_deploy#proc_Manually_installing_the_appliance_install_RHVM)
 - oVirt Engine → [Manually installing the Engine Appliance](https://www.ovirt.org/documentation/installing_ovirt_as_a_self-hosted_engine_using_the_cockpit_web_interface/#proc_Manually_installing_the_appliance_install_RHVM)
 
 Quindi procedere alla fase successiva.
@@ -163,7 +163,7 @@ Quindi procedere alla fase successiva.
 A seconda che si sia scelto di installare RHV od oVirt, attenersi alla relativa documentazione:
 
 - RHVM → [Deploying the self-hosted engine using Cockpit](https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.4/html/installing_red_hat_virtualization_as_a_self-hosted_engine_using_the_cockpit_web_interface/installing_the_red_hat_virtualization_manager_she_cockpit_deploy#Deploying_the_Self-Hosted_Engine_Using_Cockpit_install_RHVM)
-- oVirt Engine → [Deploying the Self-hosted Engine using Cockpit](https://www.ovirt.org/documentation/installing_ovirt_as_a_self-hosted_engine_using_the_cockpit_web_interface/#proc_Manually_installing_the_appliance_install_RHVM)
+- oVirt Engine → [Deploying the Self-hosted Engine using Cockpit](https://www.ovirt.org/documentation/installing_ovirt_as_a_self-hosted_engine_using_the_cockpit_web_interface/#Deploying_the_Self-Hosted_Engine_Using_Cockpit_install_RHVM)
 
 Rispetto a quanto riportato nella documentazione, è importante apportare le seguenti configurazioni durante il setup dell’Hosted Engine:
 
