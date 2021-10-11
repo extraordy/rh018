@@ -9,12 +9,13 @@ Prima di iniziare.
 Iniziamo a preparare quello che ci servirà:
 
 - 2 virtual machine con le seguenti caratteristiche (ciascuna):
-- 2 vCPU (raccomandate 4 vCPU)
-- 6 GiB di memoria (4 per il manager, 2 per l’host)
-- 1 vNIC di tipo VirtIO
-- 1 vDisk da 64 GB
-- 1 vDisk di tipo shared da 75 GB (servirà per il manager)
-- 1 vDisk di tipo shared da 10 GB (come storage per le VM)
+    - 2 vCPU (raccomandate 4 vCPU)
+    - 6 GiB di memoria (4 per il manager, 2 per l’host)
+    - 1 vNIC di tipo VirtIO
+    - 1 vDisk da 64 GB
+- 2 vDisk di tipo shared per simulare la SAN FIbreChannel:
+    - 1 vDisk di tipo shared da 75 GB (servirà per il manager)
+    - 1 vDisk di tipo shared da 10 GB (come storage per le VM)
 - L’immagine ISO di RHVH (solo se in possesso di una sottoscrizione) o di oVirt Node:
     - RHVH → scaricare l’ultima [Hypervisor Image for RHV 4.4.z](https://access.redhat.com/downloads/content/328/ver=4.4/rhel---8/4.4/x86_64/product-software)
     - oVirt Node → scaricare l'ultima [ovirt-node-ng-installer-4.4.???.el8.iso](https://resources.ovirt.org/pub/ovirt-4.4/iso/ovirt-node-ng-installer/)
