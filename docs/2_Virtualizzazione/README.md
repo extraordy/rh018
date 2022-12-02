@@ -18,7 +18,9 @@ Iniziamo a preparare quello che ci servirà:
     - 1 vDisk di tipo shared da 10 GB (come storage per le VM)
 - L’immagine ISO di RHVH (solo se in possesso di una sottoscrizione) o di oVirt Node:
     - RHVH → scaricare l’ultima [Hypervisor Image for RHV 4.4.z](https://access.redhat.com/downloads/content/328/ver=4.4/rhel---8/4.4/x86_64/product-software)
-    - oVirt Node → scaricare l'ultima [ovirt-node-ng-installer-4.4.???.el8.iso](https://resources.ovirt.org/pub/ovirt-4.4/iso/ovirt-node-ng-installer/)
+    - oVirt Node → scaricare l'ultima [ovirt-node-ng-installer-4.5.???.el8.iso](https://resources.ovirt.org/pub/ovirt-4.5/iso/ovirt-node-ng-installer/)
+
+> N.B.: al momento della redazione di questo documento, solo le immagini di oVirt Node basate su EL8 sono supportate.
 
 Dato che l'obiettivo è avere questa infrastruttura virtualizzata, è fondamentale abilitare la virtualizzazione nested nel nostro host.
 
@@ -109,10 +111,10 @@ Per definire le vm possiamo creare la macchina virtuale eseguendo il comando:
 
 ```bash
 virt-install --name node1.ovirt \
---cdrom /path/to/ovirt-node-ng-installer-4.4.8-2021090310.el8.iso \
+--cdrom /path/to/ovirt-node-ng-installer-4.5.3.2-2022102813.el8.iso \
 --vcpus 4 --memory 6144 \
 --network network=ovirt-mgt \
---os-variant rhel8.4 \
+--os-variant rhel8.6 \
 --cpu host-passthrough \
 --controller type=scsi,model=virtio-scsi \
 --disk size=64,pool=default \
@@ -141,8 +143,8 @@ Questa parte verrà spiegata durante il corso.
 
 A seconda che si sia scelto di installare RHV od oVirt, attenersi alla relativa documentazione:
 
-- RHVH → [Installing the Self-hosted Engine Deployment Host](https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.4/html/installing_red_hat_virtualization_as_a_self-hosted_engine_using_the_cockpit_web_interface/installing_the_self-hosted_engine_deployment_host_she_cockpit_deploy)
-- oVirt Node → [Installing the Self-hosted Engine Deployment Host](https://www.ovirt.org/documentation/installing_ovirt_as_a_self-hosted_engine_using_the_cockpit_web_interface/#Installing_the_self-hosted_engine_deployment_host_SHE_cockpit_deploy)
+- RHVH → [Installing the Self-hosted Engine Deployment Host](https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.4/html/installing_red_hat_virtualization_as_a_self-hosted_engine_using_the_command_line/installing_the_self-hosted_engine_deployment_host_she_cli_deploy)
+- oVirt Node → [Installing the Self-hosted Engine Deployment Host](hhttps://www.ovirt.org/documentation/installing_ovirt_as_a_self-hosted_engine_using_the_command_line/index.html#Installing_the_self-hosted_engine_deployment_host_SHE_cli_deploy)
 
 > N.B.: è necessario prestare molta attenzione alla scelta del disco di installazione. Va infatti selezionato solo il disco VirtIO da 64 GB, lasciando deselezionati i due dischi SCSI, che verranno invece utilizzati in seguito.
 
@@ -154,8 +156,8 @@ In caso si stia effettuando un’installazione con connettività Internet, proce
 
 A seconda che si sia scelto di installare RHV od oVirt, scaricare l’appliance corrispondente e installarla, attenendosi alla relativa documentazione:
 
-- RHVM → [Manually installing the RHV-M Appliance](https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.4/html/installing_red_hat_virtualization_as_a_self-hosted_engine_using_the_cockpit_web_interface/installing_the_red_hat_virtualization_manager_she_cockpit_deploy#proc_Manually_installing_the_appliance_install_RHVM)
-- oVirt Engine → [Manually installing the Engine Appliance](https://www.ovirt.org/documentation/installing_ovirt_as_a_self-hosted_engine_using_the_cockpit_web_interface/#proc_Manually_installing_the_appliance_install_RHVM)
+- RHVM → [Manually installing the RHV-M Appliance](https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.4/html/installing_red_hat_virtualization_as_a_self-hosted_engine_using_the_command_line/installing_the_red_hat_virtualization_manager_she_cli_deploy#proc_Manually_installing_the_appliance_install_RHVM)
+- oVirt Engine → [Manually installing the Engine Appliance](https://www.ovirt.org/documentation/installing_ovirt_as_a_self-hosted_engine_using_the_command_line/index.html#proc_Manually_installing_the_appliance_install_RHVM)
 
 Quindi procedere alla fase successiva.
 
@@ -163,14 +165,33 @@ Quindi procedere alla fase successiva.
 
 A seconda che si sia scelto di installare RHV od oVirt, attenersi alla relativa documentazione:
 
-- RHVM → [Deploying the self-hosted engine using Cockpit](https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.4/html/installing_red_hat_virtualization_as_a_self-hosted_engine_using_the_cockpit_web_interface/installing_the_red_hat_virtualization_manager_she_cockpit_deploy#Deploying_the_Self-Hosted_Engine_Using_Cockpit_install_RHVM)
-- oVirt Engine → [Deploying the Self-hosted Engine using Cockpit](https://www.ovirt.org/documentation/installing_ovirt_as_a_self-hosted_engine_using_the_cockpit_web_interface/#Deploying_the_Self-Hosted_Engine_Using_Cockpit_install_RHVM)
+- RHVM → [Deploying the self-hosted engine using the command line](https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.4/html/installing_red_hat_virtualization_as_a_self-hosted_engine_using_the_command_line/installing_the_red_hat_virtualization_manager_she_cli_deploy#Deploying_the_Self-Hosted_Engine_Using_the_CLI_install_RHVM)
+- oVirt Engine → [Deploying the self-hosted engine using the command line](https://www.ovirt.org/documentation/installing_ovirt_as_a_self-hosted_engine_using_the_command_line/index.html#Deploying_the_Self-Hosted_Engine_Using_the_CLI_install_RHVM)
 
 Rispetto a quanto riportato nella documentazione, è importante apportare le seguenti configurazioni durante il setup dell’Hosted Engine:
 
-1) alla schermata **VM Settings**, alla voce **Memory Size (MiB)** impostare il valore **4096**.
+1. alla domanda
+   ``` Please specify the memory size of the VM in MB. The default is the maximum available [6824]: ```
+   rispondere con il valore **4096**.
 
-2) alla schermata **Storage**, alla voce **Storage Type**, selezionare uno dei due dischi SCSI creati in precedenza (quello da 75 GiB è l’unico che rispetta la dimensione minima).
+2. alla domanda
+   ``` Please specify the storage you would like to use (glusterfs, iscsi, fc, nfs)[nfs]: ```
+   rispondere con **fc**.
+
+3. alla schermata
+
+   ```
+   The following luns have been found on the requested target:
+   [1] drive_scsi0-0-0-0   75GiB   QEMU QEMU HARDDISK
+   		status: free, paths: 1 active
+   
+   [2] drive_scsi0-0-0-1   30GiB   QEMU QEMU HARDDISK
+   		status: free, paths: 1 active
+   
+   Please select the destination LUN (1, 2) [1]:
+   ```
+
+   selezionare uno dei due dischi SCSI creati in precedenza (quello da 75 GiB è l’unico che rispetta la dimensione minima).
 
 Seguire l’intero capitolo fino a tutto il paragrafo **Connecting to the Administration Portal** compreso.
 
@@ -186,8 +207,8 @@ Questo nodo andrà aggiunto come **Self-Hosted Engine Node**, ovvero in grado di
 
 Per aggiungere il secondo nodo al cluster, attenersi alla relativa documentazione:
 
-- RHVM → [Adding Self-Hosted Engine Nodes to the Red Hat Virtualization Manager](https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.4/html/installing_red_hat_virtualization_as_a_self-hosted_engine_using_the_cockpit_web_interface/installing_hosts_for_rhv_she_cockpit_deploy#Adding_self-hosted_engine_nodes_to_the_Manager_SHE_cockpit_deploy)
-- oVirt Engine → [Adding Self-Hosted Engine Nodes to the oVirt Engine](https://www.ovirt.org/documentation/installing_ovirt_as_a_self-hosted_engine_using_the_cockpit_web_interface/#Adding_self-hosted_engine_nodes_to_the_Manager_SHE_cockpit_deploy)
+- RHVM → [Adding Self-Hosted Engine Nodes to the Red Hat Virtualization Manager](https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.4/html/installing_red_hat_virtualization_as_a_self-hosted_engine_using_the_command_line/installing_hosts_for_rhv_she_cli_deploy#Adding_self-hosted_engine_nodes_to_the_Manager_SHE_cli_deploy)
+- oVirt Engine → [Adding Self-Hosted Engine Nodes to the oVirt Engine](https://www.ovirt.org/documentation/installing_ovirt_as_a_self-hosted_engine_using_the_command_line/index.html#Adding_self-hosted_engine_nodes_to_the_Manager_SHE_cli_deploy)
 
 ### Preparazione dello storage
 
@@ -195,8 +216,8 @@ Oltre alla Storage Domain **hosted_storage** creato automaticamente all'installa
 
 Per aggiungere il secondo Storage Domain al datacenter, attenersi alla relativa documentazione per il Fibre Channel:
 
-- RHVM → [Adding FCP Storage](https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.4/html/installing_red_hat_virtualization_as_a_self-hosted_engine_using_the_cockpit_web_interface/adding_storage_domains_to_rhv_she_cockpit_deploy#Adding_FCP_Storage_SHE_cockpit_deploy)
-- oVirt Engine → [Adding FCP Storage](https://www.ovirt.org/documentation/installing_ovirt_as_a_self-hosted_engine_using_the_cockpit_web_interface/#Adding_FCP_Storage_SHE_cockpit_deploy)
+- RHVM → [Adding FCP Storage](https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.4/html/installing_red_hat_virtualization_as_a_self-hosted_engine_using_the_command_line/adding_storage_domains_to_rhv_she_cli_deploy#Adding_FCP_Storage_SHE_cli_deploy)
+- oVirt Engine → [Adding FCP Storage](https://www.ovirt.org/documentation/installing_ovirt_as_a_self-hosted_engine_using_the_command_line/index.html#Adding_FCP_Storage_SHE_cli_deploy)
 
 Rispetto a quanto riportato nella documentazione, è importante apportare le seguenti configurazioni:
 
