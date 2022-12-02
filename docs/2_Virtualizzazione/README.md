@@ -137,7 +137,7 @@ Il comando andrà a creare il disco della macchina virtuale nel dominio di defau
 
 ## Installazione
 
-Questa parte verrà spiegata durante il corso.
+Nel videocorso RH018 — andato in diretta su [rh018.it](https://rh018.it/) il 2/7/2021 — è stata presentata l'installazione di oVirt in modalità **Self-hosted Engine, con l'installer grafico Cockpit**. Questo tipo di installazione è stato deprecato. In questo documento illustreremo infatti l'installazione di oVirt in modalità **Self-hosted Engine, da command line**.
 
 ### Installazione dell’ RHVH ( o dell’oVirt Node)
 
