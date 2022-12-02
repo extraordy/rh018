@@ -144,7 +144,7 @@ Questa parte verrà spiegata durante il corso.
 A seconda che si sia scelto di installare RHV od oVirt, attenersi alla relativa documentazione:
 
 - RHVH → [Installing the Self-hosted Engine Deployment Host](https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.4/html/installing_red_hat_virtualization_as_a_self-hosted_engine_using_the_command_line/installing_the_self-hosted_engine_deployment_host_she_cli_deploy)
-- oVirt Node → [Installing the Self-hosted Engine Deployment Host](hhttps://www.ovirt.org/documentation/installing_ovirt_as_a_self-hosted_engine_using_the_command_line/index.html#Installing_the_self-hosted_engine_deployment_host_SHE_cli_deploy)
+- oVirt Node → [Installing the Self-hosted Engine Deployment Host](https://www.ovirt.org/documentation/installing_ovirt_as_a_self-hosted_engine_using_the_command_line/index.html#Installing_the_self-hosted_engine_deployment_host_SHE_cli_deploy)
 
 > N.B.: è necessario prestare molta attenzione alla scelta del disco di installazione. Va infatti selezionato solo il disco VirtIO da 64 GB, lasciando deselezionati i due dischi SCSI, che verranno invece utilizzati in seguito.
 
