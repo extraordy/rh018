@@ -111,7 +111,7 @@ Per definire le vm possiamo creare la macchina virtuale eseguendo il comando:
 
 ```bash
 virt-install --name node1.ovirt \
---cdrom /path/to/ovirt-node-ng-installer-4.5.3.2-2022102813.el8.iso \
+--cdrom /path/to/ovirt-node-ng-installer-4.5.4-2022120615.el8.iso \
 --vcpus 4 --memory 6144 \
 --network network=ovirt-mgt \
 --os-variant rhel8.6 \
@@ -159,6 +159,12 @@ A seconda che si sia scelto di installare RHV od oVirt, scaricare l’appliance 
 - RHVM → [Manually installing the RHV-M Appliance](https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.4/html/installing_red_hat_virtualization_as_a_self-hosted_engine_using_the_command_line/installing_the_red_hat_virtualization_manager_she_cli_deploy#proc_Manually_installing_the_appliance_install_RHVM)
 - oVirt Engine → [Manually installing the Engine Appliance](https://www.ovirt.org/documentation/installing_ovirt_as_a_self-hosted_engine_using_the_command_line/index.html#proc_Manually_installing_the_appliance_install_RHVM)
 
+A meno che non siano previste configurazioni particolari, il comando necessario in questo passaggio è il seguente:
+
+```
+dnf -y install ovirt-engine-appliance
+```
+
 Quindi procedere alla fase successiva.
 
 ### Installazione dell’ RHVM (o dell’oVirt Engine)
@@ -167,6 +173,12 @@ A seconda che si sia scelto di installare RHV od oVirt, attenersi alla relativa 
 
 - RHVM → [Deploying the self-hosted engine using the command line](https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.4/html/installing_red_hat_virtualization_as_a_self-hosted_engine_using_the_command_line/installing_the_red_hat_virtualization_manager_she_cli_deploy#Deploying_the_Self-Hosted_Engine_Using_the_CLI_install_RHVM)
 - oVirt Engine → [Deploying the self-hosted engine using the command line](https://www.ovirt.org/documentation/installing_ovirt_as_a_self-hosted_engine_using_the_command_line/index.html#Deploying_the_Self-Hosted_Engine_Using_the_CLI_install_RHVM)
+
+A meno che non siano previste configurazioni particolari, i comandi necessari in questo passaggio sono i seguenti:
+
+```
+hosted-engine --deploy
+```
 
 Rispetto a quanto riportato nella documentazione, è importante apportare le seguenti configurazioni durante il setup dell’Hosted Engine:
 
@@ -185,7 +197,7 @@ Rispetto a quanto riportato nella documentazione, è importante apportare le seg
    [1] drive_scsi0-0-0-0   75GiB   QEMU QEMU HARDDISK
    		status: free, paths: 1 active
    
-   [2] drive_scsi0-0-0-1   30GiB   QEMU QEMU HARDDISK
+   [2] drive_scsi0-0-0-1   10GiB   QEMU QEMU HARDDISK
    		status: free, paths: 1 active
    
    Please select the destination LUN (1, 2) [1]:
