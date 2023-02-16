@@ -174,7 +174,7 @@ A seconda che si sia scelto di installare RHV od oVirt, attenersi alla relativa 
 - RHVM → [Deploying the self-hosted engine using the command line](https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.4/html/installing_red_hat_virtualization_as_a_self-hosted_engine_using_the_command_line/installing_the_red_hat_virtualization_manager_she_cli_deploy#Deploying_the_Self-Hosted_Engine_Using_the_CLI_install_RHVM)
 - oVirt Engine → [Deploying the self-hosted engine using the command line](https://www.ovirt.org/documentation/installing_ovirt_as_a_self-hosted_engine_using_the_command_line/index.html#Deploying_the_Self-Hosted_Engine_Using_the_CLI_install_RHVM)
 
-A meno che non siano previste configurazioni particolari, i comandi necessari in questo passaggio sono i seguenti:
+A meno che non siano previste configurazioni particolari, il comando necessario in questo passaggio è il seguente:
 
 ```
 hosted-engine --deploy
@@ -206,6 +206,8 @@ Rispetto a quanto riportato nella documentazione, è importante apportare le seg
    selezionare uno dei due dischi SCSI creati in precedenza (quello da 75 GiB è l’unico che rispetta la dimensione minima).
 
 Seguire l’intero capitolo fino a tutto il paragrafo **Connecting to the Administration Portal** compreso.
+
+> N.B.: se durante l'installazione è stata scelta l'integrazione con Keycloak, l'utente sarà 'admin@ovirt'. Altrimenti, con il classico sistema di autenticazione oVirt AAA, l'utente è sempre 'admin' sul profilo 'internal'.
 
 ## Task post-installazione
 
