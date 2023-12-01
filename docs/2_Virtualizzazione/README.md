@@ -111,7 +111,7 @@ Per definire le vm possiamo creare la macchina virtuale eseguendo il comando:
 
 ```bash
 virt-install --name node1.ovirt \
---cdrom /path/to/ovirt-node-ng-installer-4.5.4-2022120615.el8.iso \
+--cdrom /path/to/ovirt-node-ng-installer-4.5.5-2023113015.el8.iso \
 --vcpus 4 --memory 6144 \
 --network network=ovirt-mgt \
 --os-variant rhel8.6 \
